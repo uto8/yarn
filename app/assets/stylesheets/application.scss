@@ -1,1 +1,13 @@
 @import "bootstrap/scss/bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Sawarabi+Gothic&display=swap');
+body{
+  font-family: 'Sawarabi Gothic', sans-serif;
+  background:#00CC99;
+}
+.actions{
+  input.btn{
+    background:#00CC99;
+    color:#fff;
+    padding:5px 20px;
+  }
+}
