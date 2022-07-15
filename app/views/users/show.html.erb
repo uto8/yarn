@@ -1,0 +1,17 @@
+<div class="row mb-5">
+  <div class="col-lg-3"></div>
+  <div class="col-lg-6 col-12">
+    <div class="card shadow-lg pt-3 pb-3">
+      <div class="card-body">
+        名前：<%= @user.name %><br>
+        メールアドレス：<%= @user.email %><br>
+        生年月日：<%= @user.birthday %><br>
+        性別：<%= @user.gender %>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3"></div>
+</div>
+<div class="text-center">
+<%= link_to "編集する", edit_user_path(@user), class:"btn btn-dark shadow" %>
+</div>

@@ -12,6 +12,10 @@
             <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control" %>
           </div>
           <div class="form-group">
+            <%= f.label :name, "ニックネーム" %>
+            <%= f.text_field :name, autofocus: true, class:"form-control" %>
+          </div>
+          <div class="form-group">
             <%= f.label :password, "パスワード" %>
             <% if @minimum_password_length %>
             <em>(<%= @minimum_password_length %> 文字以上)</em>
@@ -19,11 +23,23 @@
             <%= f.password_field :password, autofocus: true, class:"form-control" %>
           </div>
 
-          <div class="form-group mb-3">
+          <div class="form-group">
             <%= f.label :password_confirmation, "パスワード(確認)" %>
             <%= f.password_field :password_confirmation, autofocus: true, class:"form-control" %>
           </div>
 
+          <div class="form-group">
+            <%= f.label :birthday, "生年月日" %>
+            <%= f.date_field :birthday, autofocus: true, class:"form-control" %>
+          </div>
+
+          <div class="form sex-field mb-3">
+            <%= f.label :gender,"性別" %><br />
+            <%= f.label :man, "男性" %>
+            <%= f.radio_button :gender, :man %>
+            <%= f.label :woman, "女性" %>
+            <%= f.radio_button :gender, :woman %>
+          </div>
           <div class="actions text-center mb-4">
             <%= f.submit "登録する", class:"btn shadow" %>
           </div>
