@@ -1,0 +1,55 @@
+<div class="row mb-5">
+  <div class="col-lg-4 col-12">
+    <div class="card shadow-lg pt-3 pb-3 mb-4">
+      <div class="card-body">
+        <h5 class="card-title">ユーザー検索</h5>
+        <%= search_form_for(@q, url:users_path) do |f| %>
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <%= f.label :name_cont, "ニックネーム" %>
+                <%= f.text_field :name_cont, class:"form-control" %>
+              </div>
+            </div>
+          </div>
+          <%= f.submit "検索", class:"btn btn-green shadow" %>
+        <% end %>
+      </div>
+    </div>
+    <% if @check.present? %>
+      <div class="card mb-5">
+        <div class="card-body">
+          <table>
+            <% @user_results.each do |user| %>
+              <tr class="border-bottom">
+                <td><%= user.name %></td>
+                <td><%= link_to "詳細", user_path(user), class:"btn btn-dark shadow" %></td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-lg-8 col-12">
+    <div class="card shadow">
+      <div class="card-body">
+        <h5 class="card-title mb-4">フレンドリスト</h5>
+        <% if @friends.present? %>
+        <table class="mb-4">
+          <% @friends.each do |user| %>
+            <tr>
+              <td>
+                <%= user.name %>
+              </td>
+              <td>
+                <%= link_to "詳細", user_path(user), class:"btn btn-dark" %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
