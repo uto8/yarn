@@ -1,2 +1,77 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<% @events.each do |event| %>
+  <%= event.user.gender %>
+<%end%>
+<div id='map'></div>
+<style>
+#map{
+    height: 500px;
+    /* width: 530px; */
+}
+</style>
+
+<script>
+
+let map
+let geocoder
+let marker = []; // マーカーを複数表示させたいので、配列化
+let infoWindow = []; // 吹き出しを複数表示させたいので、配列化
+const events = gon.events; // コントローラーで定義したインスタンス変数を変数に代入
+
+
+function initMap(){
+    // geocoderを初期化
+    geocoder = new google.maps.Geocoder()
+    // mapの初期位置設定
+    map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 35.6762, lng: 139.6503},
+    zoom: 10
+    });
+    // forは繰り返し処理
+    // 変数iを0と定義し、
+    // その後gonで定義したevents分繰り返し加える処理を行う
+    for (let i = 0; i < events.length; i++) {
+        // geocoderで addressの経緯緯度取得
+        // events[i]は変数iのユーザーを取得している
+        geocoder.geocode( { 'address': events[i].address }, function(results, status) {
+            // statusがOKであれば
+        if (status == 'OK') {
+          // map.setCenterで地図が移動
+            map.setCenter(results[0].geometry.location);
+            marker[i] = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+            });
+            // 変数iを変数idに代入
+            let id = events[i]['id']
+            // infoWindowは吹き出し
+            infoWindow[i] = new google.maps.InfoWindow({
+            // contentで中身を指定
+            // 今回は文字にリンクを貼り付けた形で表示
+            content: `<div class="card"">
+                        <div class="card-body">
+                          <h5 class="card-title">${events[i].title}</h5>
+                          <p class="card-text"></p>
+                          <p>場所：${events[i].address}</p>
+                          <a href='/events/${id}'>詳細</a>
+                        </div>
+                      </div>`
+            });
+            // markerがクリックされた時、
+            marker[i].addListener("click", function(){
+                // infoWindowを表示
+                infoWindow[i].open(map, marker[i]);
+            });
+        } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+        }
+        });
+    }
+}
+
+function codeAddress(){
+    // 入力を取得
+    let inputAddress = document.getElementById('address').value;
+    // geocodingしたあとmapを移動
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfJkuW2WmO7MY6SB8YM7MuEsRj9mENKQk&callback=initMap" async defer></script>

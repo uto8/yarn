@@ -1,0 +1,18 @@
+<div class="row mb-5">
+  <div class="col-lg-3"></div>
+  <div class="col-lg-6 col-12">
+    <div class="card shadow-lg pt-3 pb-3 mb-4">
+      <div class="card-body">
+        <h5 class="card-title mb-1">
+          <%= @event.title %>
+        </h5>
+        <p class="card-text mb-5"><%= @event.message %></p>
+        <h6>メンバー</h6>
+        <p class="mb-3"><%= @event.user.name %></p>
+        <h6>場所</h6>
+        <p><%= @event.address %></p>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3"></div>
+</div>
