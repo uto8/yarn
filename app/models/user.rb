@@ -15,6 +15,9 @@ class User < ApplicationRecord
   has_many :follower_relationships, foreign_key: "following_id", class_name: "Relationship", dependent: :destroy
   has_many :followers, through: :follower_relationships
 
+  has_many :user_files, dependent: :destroy
+  accepts_nested_attributes_for :user_files
+
   def following?(other_user)
     following_relationships.find_by(following_id: other_user.id)
   end

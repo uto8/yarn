@@ -3,6 +3,13 @@
   <div class="col-lg-6 col-12">
     <div class="card shadow-lg pt-3 pb-3">
       <div class="card-body">
+      <div class="row">
+        <% @user.user_files.each do |file| %>
+          <div class="col-md-4 col-6 mb-3 img-item">
+            <%= image_tag file.file.to_s, class:"img" %>
+          </div>
+        <% end %>
+      </div>
         名前：<%= @user.name %><br>
         メールアドレス：<%= @user.email %><br>
         生年月日：<%= @user.birthday %><br>

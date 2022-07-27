@@ -60,3 +60,5 @@ gem 'kaminari', '~> 0.17.0'
 gem 'bootstrap4-kaminari-views'
 gem 'geocoder'
 gem "gon"
+gem 'carrierwave'
+gem 'mini_magick'

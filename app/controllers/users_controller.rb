@@ -13,11 +13,18 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    @user_file = @user.user_files.build
   end
 
   def update
     @user = User.find_by(params[:id])
     if @user.update(user_params)
+      if params[:user_files].present?
+        # フォームで入力されたファイルを一つずつレコードに格納していく
+        params[:user_files][:file].each do |a|
+          @user_file = @user.user_files.create!(file: a, user_id: @user.id)
+        end
+      end
       redirect_to user_path(@user)
     else
       render "edit"
@@ -49,6 +56,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email)
+    params.require(:user).permit(:name, :email, user_files_attributes: [:id, :file, :destroy])
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_16_124729) do
+ActiveRecord::Schema.define(version: 2022_07_20_074534) do
 
   create_table "events", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -36,6 +36,14 @@ ActiveRecord::Schema.define(version: 2022_07_16_124729) do
     t.index ["following_id"], name: "index_relationships_on_following_id"
   end
 
+  create_table "user_files", charset: "utf8mb4", force: :cascade do |t|
+    t.string "file"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_user_files_on_user_id"
+  end
+
   create_table "user_images", charset: "utf8mb4", force: :cascade do |t|
     t.integer "user_id"
     t.string "image_id"
@@ -59,4 +67,5 @@ ActiveRecord::Schema.define(version: 2022_07_16_124729) do
   end
 
   add_foreign_key "events", "users"
+  add_foreign_key "user_files", "users"
 end
