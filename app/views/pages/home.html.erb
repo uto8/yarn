@@ -1,6 +1,3 @@
-<% @events.each do |event| %>
-  <%= event.user.gender %>
-<%end%>
 <div id='map'></div>
 <style>
 #map{
@@ -62,7 +59,7 @@ function initMap(){
                 infoWindow[i].open(map, marker[i]);
             });
         } else {
-            alert('Geocode was not successful for the following reason: ' + status);
+            // alert('Geocode was not successful for the following reason: ' + status);
         }
         });
     }
