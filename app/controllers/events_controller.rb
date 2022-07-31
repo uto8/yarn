@@ -21,10 +21,18 @@ class EventsController < ApplicationController
   end
 
   def edit
+    @event = Event.find(params[:id])
+  end
+
+  def update
+    @event = Event.find_by(params[:id])
+    if @event.update(event_params)
+      redirect_to root_path
+    end
   end
 
   private
   def event_params
-    params.require(:event).permit(:user_id, :address, :title, :message, :is_finish, :request, :latitude, :longitude)
+    params.require(:event).permit(:user_id, :address, :title, :message, :is_finish, :request, :latitude, :longitude, :participant_id)
   end
 end

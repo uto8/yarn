@@ -21,8 +21,10 @@ ActiveRecord::Schema.define(version: 2022_07_27_121121) do
     t.integer "request"
     t.float "latitude"
     t.float "longitude"
+    t.bigint "participant_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["participant_id"], name: "index_events_on_participant_id"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
@@ -62,6 +64,7 @@ ActiveRecord::Schema.define(version: 2022_07_27_121121) do
   end
 
   add_foreign_key "events", "users"
+  add_foreign_key "events", "users", column: "participant_id"
   add_foreign_key "requests", "events"
   add_foreign_key "requests", "users"
 end

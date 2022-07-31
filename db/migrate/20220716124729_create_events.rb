@@ -9,6 +9,7 @@ class CreateEvents < ActiveRecord::Migration[6.1]
       t.integer :request
       t.float :latitude
       t.float :longitude
+      t.references :participant, foreign_key: { to_table: :users }, null: true
 
       t.timestamps
     end

@@ -26,7 +26,8 @@
                     <%= request.user.name %>
                     <div class="btn">
                       <%= link_to "　詳細　",  user_path(request.user), class:"btn-sm btn-dark" %>
-                      <%= link_to "　承認　", "", class:"btn-sm btn-danger" %>
+                      <%# Todo承認機能 %>
+                      <%= link_to "　承認　", "", class:"btn-sm btn-danger", data: { confirm: '承認しますか?'} %>
                     </div>
                   </div>
                   <%= request.message %>
@@ -41,16 +42,21 @@
               <% if @requests.where(user: current_user).present? %>
               送信済み
               <% else %>
-              <div class="requestBtn text-center">
-                <%= form_with(model:@request, url:requests_path, method: :post, local:true) do |f| %>
-                  <%= f.hidden_field :user_id, :value => current_user.id %>
-                  <%= f.hidden_field :event_id, :value => @event.id %>
-                  <div class="form-group">
-                    <%= f.text_area :message, class:"form-control" %>
+                <% if user_signed_in? %>
+                  <div class="requestBtn text-center">
+                    <%= form_with(model:@request, url:requests_path, method: :post, local:true) do |f| %>
+                      <%= f.hidden_field :user_id, :value => current_user.id %>
+                      <%= f.hidden_field :event_id, :value => @event.id %>
+                      <div class="form-group">
+                        <%= f.text_area :message, class:"form-control" %>
+                      </div>
+                      <%= f.submit "リクエストを送る", class:"btn btn-dark shadow"%>
+                    <% end %>
                   </div>
-                  <%= f.submit "リクエストを送る", class:"btn btn-dark shadow"%>
+                <% else %>
+                  <p>リクエストを送る場合はログインしてください</p>
+                  <%= link_to "ログイン", new_user_session_path, class:"btn btn-dark shadow" %>
                 <% end %>
-              </div>
               <% end %>
             <% end %>
           </div>
