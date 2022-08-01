@@ -12,8 +12,9 @@ Rails.application.routes.draw do
   resources :relationships, only: [:create, :destroy]
   resources :events do
     member do
-      resources :requests, only: [:create]
+      # resources :requests, only: [:create]
     end
   end
+  resources :requests
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
