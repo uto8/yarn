@@ -10,6 +10,9 @@ class Event < ApplicationRecord
   accepts_nested_attributes_for :event_users, allow_destroy: true
   validates_associated :users
 
+  validates :title, presence: true
+  validates :address, presence: true
+
   def requested?(user)
     requests.include?(user)
   end
