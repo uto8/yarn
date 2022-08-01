@@ -11,6 +11,12 @@
         <p class="mb-3"><%= @event.user.name %></p>
         <h6>場所</h6>
         <p><%= @event.address %></p>
+        <h6>参加者</h6>
+        <% @event_users.each do |event_user| %>
+          <%= link_to user_path(event_user.user.id) do %>
+            <%= event_user.user.name %></p>
+          <% end %>
+        <% end %>
       </div>
     </div>
     <div class="request">
