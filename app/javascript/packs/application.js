@@ -10,6 +10,7 @@ import "channels"
 import "bootstrap"
 require('jquery')
 require("@nathanvda/cocoon") 
+global.toastr = require("toastr")
 
 Rails.start()
 Turbolinks.start()
