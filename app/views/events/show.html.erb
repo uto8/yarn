@@ -7,16 +7,28 @@
           <%= @event.title %>
         </h5>
         <p class="card-text mb-5"><%= @event.message %></p>
+        <%= image_tag @event.user.image, class:"w-100" %>
         <h6>メンバー</h6>
-        <p class="mb-3"><%= @event.user.name %></p>
+        <p class="mb-3">
+          <%= link_to user_path(@event.user.id) do %>
+            <%= @event.user.name %>
+          <% end %>
+        </p>
         <h6>場所</h6>
         <p><%= @event.address %></p>
         <h6>参加者</h6>
-        <% @event_users.each do |event_user| %>
-          <%= link_to user_path(event_user.user.id) do %>
-            <%= event_user.user.name %></p>
+        <div class="row">
+          <% @event_users.each do |event_user| %>
+            <div class="col-4">
+              <% if event_user.user.image.attached? %>
+                <%= image_tag event_user.user.image, class:"w-100" %>
+              <% end %>
+              <%= link_to user_path(event_user.user.id) do %>
+                <%= event_user.user.name %>
+              <% end %>
+            </div>
           <% end %>
-        <% end %>
+        </div>
       </div>
     </div>
     <div class="request">

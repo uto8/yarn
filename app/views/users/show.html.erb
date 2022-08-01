@@ -8,7 +8,7 @@
       <div class="card-body">
       <div class="row">
         <% if @user.image.attached? %>
-          <%= image_tag @user.image, class:"w-100" %>
+          <%= image_tag @user.image, class:"w-100 mb-2" %>
         <% end %>
       </div>
         名前：<%= @user.name %><br>
