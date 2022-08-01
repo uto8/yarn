@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_20_074534) do
+ActiveRecord::Schema.define(version: 2022_07_31_132720) do
+
+  create_table "event_users", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "event_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_event_users_on_event_id"
+    t.index ["user_id"], name: "index_event_users_on_user_id"
+  end
 
   create_table "events", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -21,8 +30,10 @@ ActiveRecord::Schema.define(version: 2022_07_20_074534) do
     t.integer "request"
     t.float "latitude"
     t.float "longitude"
+    t.bigint "participant_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["participant_id"], name: "index_events_on_participant_id"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
@@ -36,19 +47,31 @@ ActiveRecord::Schema.define(version: 2022_07_20_074534) do
     t.index ["following_id"], name: "index_relationships_on_following_id"
   end
 
+  create_table "request_users", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "request_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["request_id"], name: "index_request_users_on_request_id"
+    t.index ["user_id"], name: "index_request_users_on_user_id"
+  end
+
+  create_table "requests", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "event_id", null: false
+    t.text "message"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_requests_on_event_id"
+    t.index ["user_id"], name: "index_requests_on_user_id"
+  end
+
   create_table "user_files", charset: "utf8mb4", force: :cascade do |t|
     t.string "file"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_user_files_on_user_id"
-  end
-
-  create_table "user_images", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "user_id"
-    t.string "image_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
@@ -66,6 +89,13 @@ ActiveRecord::Schema.define(version: 2022_07_20_074534) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "event_users", "events"
+  add_foreign_key "event_users", "users"
   add_foreign_key "events", "users"
+  add_foreign_key "events", "users", column: "participant_id"
+  add_foreign_key "request_users", "requests"
+  add_foreign_key "request_users", "users"
+  add_foreign_key "requests", "events"
+  add_foreign_key "requests", "users"
   add_foreign_key "user_files", "users"
 end

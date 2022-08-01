@@ -62,3 +62,4 @@ gem 'geocoder'
 gem "gon"
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'cocoon'

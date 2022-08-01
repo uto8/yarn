@@ -9,6 +9,8 @@ class User < ApplicationRecord
 
   enum gender: { man: 0, woman: 1 }
 
+  has_many :requests
+
   has_many :following_relationships, foreign_key: "follower_id", class_name: "Relationship", dependent: :destroy
   has_many :followings, through: :following_relationships
 
@@ -17,6 +19,11 @@ class User < ApplicationRecord
 
   has_many :user_files, dependent: :destroy
   accepts_nested_attributes_for :user_files
+  has_many :event_users
+  has_many :events, through: :event_users
+
+  has_many :request_users
+  has_many :requests, through: :request_users
 
   def following?(other_user)
     following_relationships.find_by(following_id: other_user.id)
