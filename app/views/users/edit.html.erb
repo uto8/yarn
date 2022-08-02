@@ -4,7 +4,6 @@
     <div class="card shadow-lg pt-3 pb-3">
       <div class="card-body">
         <%= form_for(@user, url:{controller:'users', action: 'update',id:@user.id}) do |f| %>
-        <%= render 'shared/error_messages', model: f.object %>
           <div class="form-group">
             <%= f.file_field :image %>
           </div>

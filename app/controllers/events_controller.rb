@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   def index
+    @friends = current_user.followings & current_user.followers
   end
 
   def new
@@ -9,9 +10,12 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.create(event_params)
+    @friends = current_user.followings & current_user.followers
     if @event.save
+      flash[:success] = "イベントを作成しました"
       redirect_to event_path(@event)
     else
+      flash[:error] = "イベントの作成に失敗しました"
       render 'new'
     end
   end
