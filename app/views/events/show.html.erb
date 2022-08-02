@@ -19,7 +19,7 @@
         <h6>参加者</h6>
         <div class="row">
           <% @event_users.each do |event_user| %>
-            <div class="col-4">
+            <div class="col-lg-4 col-6">
               <% if event_user.user.image.attached? %>
                 <%= image_tag event_user.user.image, class:"w-100" %>
               <% end %>
