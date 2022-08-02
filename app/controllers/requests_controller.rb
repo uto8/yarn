@@ -5,6 +5,7 @@ class RequestsController < ApplicationController
     # redirect_to root_path
     event = Event.find(params[:id])
     Request.create(request_params)
+    flash[:success] = "リクエストしました"
     redirect_to root_path
   end
 

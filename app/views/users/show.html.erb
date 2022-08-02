@@ -28,18 +28,23 @@
         </div>
       <% end %>
     </div>
-    <% if @events.present? %>
-    <div class="card shadow-lg pb-3">
-      <div class="card-header">
-        イベント
-      </div>
-      <% @events.each do |event| %>
-      <div class="card-body d-flex justify-content-between">
-        <%= event.title %>
-        <%= link_to "編集する", edit_event_path(event), class:"btn-sm btn-dark shadow" %>
+    <% if @user == current_user%>
+      <% if @events.present? %>
+      <div class="card shadow-lg pb-3">
+        <div class="card-header">
+          イベント
+        </div>
+        <% @events.each do |event| %>
+        <div class="card-body d-flex justify-content-between">
+          <%= event.title %>
+          <div>
+            <%= link_to "詳細", event_path(event), class:"btn-sm btn-dark shadow" %>
+            <%= link_to "編集", edit_event_path(event), class:"btn-sm btn-dark shadow" %>
+          </div>
+        </div>
+        <% end %>
       </div>
       <% end %>
-    </div>
     <% end %>
   </div>
   <div class="col-lg-3"></div>
