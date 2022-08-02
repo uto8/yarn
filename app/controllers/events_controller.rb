@@ -35,9 +35,14 @@ class EventsController < ApplicationController
   end
 
   def update
-    @event = Event.find_by(params[:id])
+    @event = Event.find(params[:id])
+    @friends = current_user.followings & current_user.followers
     if @event.update(event_params)
+      flash[:success] = "イベントを更新しました"
       redirect_to root_path
+    else
+      flash[:error] = "イベントの更新に失敗しました"
+      render 'edit'
     end
   end
 

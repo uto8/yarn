@@ -5,6 +5,9 @@ body{
   font-family: 'Sawarabi Gothic', sans-serif;
   background:#00CC99;
 }
+.img-logo{
+  width:150px;
+}
 .btn-green{
   background:#00CC99;
   color:#fff;
@@ -17,9 +20,16 @@ body{
     padding:5px 20px;
   }
 }
+.img-item{
+  .img{
+    width:100%;
+    height:200px;
+    object-fit: cover;
+  }
 .view{
   display: block;
 }
 .inview{
   display: none;
+}
 }

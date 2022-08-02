@@ -4,7 +4,6 @@
     <div class="card shadow-lg pt-3 pb-3 mb-4">
       <div class="card-body">
         <%= form_for(@event, url:{controller:'events', action: 'update',id:@event.id}) do |f| %>
-          <%#= render 'shared/error_messages', model: f.object %>
           <%= f.hidden_field :user_id, :value => current_user.id %>
           <div class="form-group">
             <%= f.label :title, "タイトル" %>

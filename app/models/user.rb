@@ -9,6 +9,8 @@ class User < ApplicationRecord
 
   enum gender: { man: 0, woman: 1 }
 
+  has_one_attached :image
+
   has_many :requests
 
   has_many :following_relationships, foreign_key: "follower_id", class_name: "Relationship", dependent: :destroy
