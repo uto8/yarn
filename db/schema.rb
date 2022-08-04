@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 2022_08_01_060028) do
     t.string "name", null: false
     t.integer "gender", default: 0, null: false
     t.date "birthday", null: false
+    t.boolean "is_admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
