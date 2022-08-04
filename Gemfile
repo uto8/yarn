@@ -61,3 +61,5 @@ gem 'bootstrap4-kaminari-views'
 gem 'geocoder'
 gem "gon"
 gem 'cocoon'
+gem 'rails_admin', '~> 2.0'
+gem 'cancancan'
