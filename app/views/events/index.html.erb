@@ -2,13 +2,17 @@
   <div class="col-lg-3"></div>
   <div class="col-lg-6 col-12">
     <div class="card shadow-lg pt-3 pb-3 mb-4">
-      <div class="card-title d-flex justify-content-between p-4">
-      <h5>募集</h5>
-      <%= link_to "募集する", new_event_path, class:"btn btn-dark shadow" %>
-      </div>
-      <div class="card-body">
-        
-      </div>
+      <% if license_checked? %>
+        <div class="card-title d-flex justify-content-between p-4">
+          <h5>募集</h5>
+          <%= link_to "募集する", new_event_path, class:"btn btn-dark shadow" %>
+        </div>
+      <% else %>
+        <div class="card-body">
+          <h5>年齢確認が必要です。</h5><br><p>関連法規に基づき、年齢確認をしています。</p>
+          <%= link_to "身分証提示", new_license_approval_path %>
+        </div>
+      <% end %>
     </div>
   </div>
   <div class="col-lg-3"></div>

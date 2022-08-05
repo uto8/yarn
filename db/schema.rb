@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_01_060028) do
+ActiveRecord::Schema.define(version: 2022_08_04_100803) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -65,6 +65,14 @@ ActiveRecord::Schema.define(version: 2022_08_01_060028) do
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
+  create_table "license_approvals", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "image"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_license_approvals_on_user_id"
+  end
+
   create_table "relationships", charset: "utf8mb4", force: :cascade do |t|
     t.integer "follower_id"
     t.integer "following_id"
@@ -106,6 +114,7 @@ ActiveRecord::Schema.define(version: 2022_08_01_060028) do
     t.integer "gender", default: 0, null: false
     t.date "birthday", null: false
     t.boolean "is_admin", default: false
+    t.boolean "license_approval_status", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -116,6 +125,7 @@ ActiveRecord::Schema.define(version: 2022_08_01_060028) do
   add_foreign_key "event_users", "users"
   add_foreign_key "events", "users"
   add_foreign_key "events", "users", column: "participant_id"
+  add_foreign_key "license_approvals", "users"
   add_foreign_key "request_users", "requests"
   add_foreign_key "request_users", "users"
   add_foreign_key "requests", "events"

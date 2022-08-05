@@ -63,3 +63,5 @@ gem "gon"
 gem 'cocoon'
 gem 'rails_admin', '~> 2.0'
 gem 'cancancan'
+gem 'carrierwave'
+gem 'mini_magick'
