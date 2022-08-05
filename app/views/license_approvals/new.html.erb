@@ -1,0 +1,20 @@
+<div class="row mb-5">
+  <div class="col-lg-3"></div>
+  <div class="col-lg-6 col-12">
+    <div class="card shadow-lg pt-3 pb-3 mb-4">
+      <div class="card-body">
+        <h3 class="card-title">身分証明書確認</h3>
+        <p class="card-text mb-5">年齢確認のため、生年月日の確認できる身分証明書が必要です。<br>承認されるまで数営業日かかる場合がございます。</p>
+        <%= form_with(model:@license_approval, url:license_approvals_path, method: :post, local:true) do |f| %>
+          <%#= f.attachment_field :image, class:"mb-4" %>
+          <%= f.file_field :image%>
+          <%= f.hidden_field :user_id, :value => current_user.id %>
+          <div class="actions text-center">
+            <%= f.submit "送信する",class:"btn shadow" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3"></div>
+</div>
