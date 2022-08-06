@@ -1,0 +1,26 @@
+<div class="row mb-5">
+  <div class="col-lg-3"></div>
+  <div class="col-lg-6 col-12">
+    <div class="card shadow-lg pt-3 pb-3 mb-4">
+      <div class="card-body">
+        <h5 class="card-title mb-3 text-center">参加者を追加する</h5>
+        <%= form_for(@request, url:{controller:'requests', action: 'update',id:@request.id}) do |f| %>
+          <div class="form-group" id='detail-association-insertion-point'>
+            <%= f.fields_for :request_users do |request_user| %>
+              <%= render 'request_user_fields', f: request_user %>
+            <% end %>
+            <div class="add-association">
+              <%= link_to_add_association f, :request_users, class: "btn btn-outline-dark" do %>
+                追加
+              <% end %>
+            </div>
+          </div>
+          <div class="actions text-center">
+            <%= f.submit "友達を追加する",class:"btn shadow" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3"></div>
+</div>
