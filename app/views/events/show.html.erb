@@ -62,7 +62,9 @@
                         </div>
                       </div>
                       <% request.request_users.each do |request_user| %>
+                        <div>
                         <%= link_to request_user.user.name, user_path(request_user.user) %>
+                        </div>
                       <% end %>
                       <%= request.message %>
                     </div>

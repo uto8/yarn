@@ -15,7 +15,11 @@ class RequestsController < ApplicationController
   def update
     @request = Request.find(params[:id])
     @friends = current_user.followings & current_user.followers
-    if @request.update(request_params)
+    if @request.update(
+      params.require(:request).permit(:user_id, :event_id, :message,
+        request_users_attributes: [:id, :request_id, :user_id, :_destroy]
+      )
+    )
       flash[:success] = "友達を追加しました"
       redirect_to root_path
     else
