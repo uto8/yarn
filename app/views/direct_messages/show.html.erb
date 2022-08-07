@@ -7,7 +7,7 @@
       </div>
       <div class="card-body">
       <% @direct_messages.each do |direct_message| %>
-        <div class="<%= message(direct_message) %>">
+        <div class="<%= message(direct_message) %> mb-2">
           <%= link_to direct_message.user.name, user_path(direct_message.user) %><br>
           <%= direct_message.content %>
         </div>
@@ -23,5 +23,6 @@
       <%= f.hidden_field :room_id, :value => @room.id %>
       <%= f.hidden_field :user_id, :value => current_user.id %>
       <%= f.submit "送信", class:"btn btn-sm btn-dark shadow" %>
+      <%= link_to('リロード', 'javascript:void(0);', onclick: "window.location.reload();", class: "btn btn-sm btn-primary shadow")  %> 
   <% end %>
 </div>
