@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_04_100803) do
+ActiveRecord::Schema.define(version: 2022_08_06_132837) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -38,6 +38,25 @@ ActiveRecord::Schema.define(version: 2022_08_04_100803) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "direct_messages", charset: "utf8mb4", force: :cascade do |t|
+    t.string "content"
+    t.bigint "user_id", null: false
+    t.bigint "room_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["room_id"], name: "index_direct_messages_on_room_id"
+    t.index ["user_id"], name: "index_direct_messages_on_user_id"
+  end
+
+  create_table "entries", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "room_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["room_id"], name: "index_entries_on_room_id"
+    t.index ["user_id"], name: "index_entries_on_user_id"
   end
 
   create_table "event_users", charset: "utf8mb4", force: :cascade do |t|
@@ -102,6 +121,13 @@ ActiveRecord::Schema.define(version: 2022_08_04_100803) do
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
+  create_table "rooms", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "event_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_rooms_on_event_id"
+  end
+
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -121,6 +147,10 @@ ActiveRecord::Schema.define(version: 2022_08_04_100803) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "direct_messages", "rooms"
+  add_foreign_key "direct_messages", "users"
+  add_foreign_key "entries", "rooms"
+  add_foreign_key "entries", "users"
   add_foreign_key "event_users", "events"
   add_foreign_key "event_users", "users"
   add_foreign_key "events", "users"
@@ -130,4 +160,5 @@ ActiveRecord::Schema.define(version: 2022_08_04_100803) do
   add_foreign_key "request_users", "users"
   add_foreign_key "requests", "events"
   add_foreign_key "requests", "users"
+  add_foreign_key "rooms", "events"
 end

@@ -300,6 +300,7 @@ DEPENDENCIES
   geocoder
   gon
   jbuilder (~> 2.7)
+  jquery-rails
   kaminari (~> 0.17.0)
   listen (~> 3.3)
   mini_magick

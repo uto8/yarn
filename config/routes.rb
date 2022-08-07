@@ -18,5 +18,7 @@ Rails.application.routes.draw do
   end
   resources :license_approvals, only: [:new, :create]
   resources :requests, only: [:edit, :update]
+  get 'direct_message/:id' => 'direct_messages#show', as: 'direct_message'
+  resources :direct_messages, only: [:create]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

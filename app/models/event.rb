@@ -13,6 +13,8 @@ class Event < ApplicationRecord
   validates :title, presence: true
   validates :address, presence: true
 
+  has_one :event, dependent: :destroy
+
   def requested?(user)
     requests.include?(user)
   end

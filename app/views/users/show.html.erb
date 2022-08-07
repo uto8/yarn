@@ -1,7 +1,7 @@
 <div class="row mb-5">
   <div class="col-lg-3"></div>
   <div class="col-lg-6 col-12">
-    <div class="card shadow-lg pb-3">
+    <div class="card shadow-lg pb-1">
       <div class="card-header">
         ユーザー
       </div>
@@ -15,6 +15,10 @@
           名前：<%= @user.name %><br>
           生年月日：<%= @user.birthday %><br>
           性別：<%= @user.gender %>
+        </div>
+        <div>
+          <span class="mr-2"><small>フォロー</small><%= current_user.followings.count %></span>
+          <span><small>フォロワー</small><%= current_user.followers.count %></span>
         </div>
         <% unless license_checked? %>
         <h5>年齢確認が必要です。</h5><br><p>関連法規に基づき、年齢確認をしています。</p>

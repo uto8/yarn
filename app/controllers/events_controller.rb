@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
   def index
     @friends = current_user.followings & current_user.followers
+    @events = Event.all
   end
 
   def new
@@ -39,7 +40,13 @@ class EventsController < ApplicationController
     @friends = current_user.followings & current_user.followers
     if @event.update(event_params)
       flash[:success] = "イベントを更新しました"
-      redirect_to root_path
+      # roomを作成
+      room = Room.create(event: @event)
+      # 参加するユーザーを作成
+      entry1 = Entry.create(user_id: @event.participant_id ,room_id: room.id)
+      entry2 = Entry.create(user_id: @event.user.id ,room_id: room.id)
+      # 承認ボタンを押したらトークルームに遷移
+      redirect_to direct_message_path(@event.participant_id)
     else
       flash[:error] = "イベントの更新に失敗しました"
       render 'edit'

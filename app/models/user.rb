@@ -27,6 +27,10 @@ class User < ApplicationRecord
   has_many :request_users
   has_many :requests, through: :request_users
 
+  has_many :entries
+  has_many :direct_messages
+  has_many :rooms, through: :entries
+
   def following?(other_user)
     following_relationships.find_by(following_id: other_user.id)
   end
