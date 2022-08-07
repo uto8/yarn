@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @events = Event.where(user: current_user)
+    @requests = Request.where(user: current_user)
   end
 
   def edit

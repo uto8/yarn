@@ -55,8 +55,8 @@
                           <%= link_to "　詳細　",  user_path(request.user), class:"mb-1 shadow btn btn-sm btn-dark" %>
                           <%# Todo承認機能 %>
                           <%= form_for(@event, url:{controller:'events', action: 'update',id:@event.id}) do |f| %>
-                          <%= f.hidden_field :participant_id, :value => current_user.id %>
-                          <%= f.submit "　承認　", class:"btn-sm btn-danger btn shadow", data: { confirm: '承認しますか?'} %>
+                            <%= f.hidden_field :participant_id, :value => request.user.id %>
+                            <%= f.submit "　承認　", class:"btn-sm btn-danger btn shadow", data: { confirm: '承認しますか?'} %>
                           <% end %>
                           <%#= link_to "承認", "", class:"btn-sm btn-danger", data: { confirm: '承認しますか?'} %>
                         </div>
