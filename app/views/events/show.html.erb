@@ -38,66 +38,66 @@
         <div class="card">
           <div class="card-body">
             <% if @event.participant_id ==nil %>
-              <% if license_checked? %>
-                <% if @event.user == current_user %>
-                  <h5 class="card-title mb-3">リクエスト一覧</h5>
-                  <% if @requests.present? %>
-                  <% @requests.each do |request| %>
-                    <div class="px-3">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                          <% if @event.user.image.attached? %>
-                            <%= image_tag @event.user.image, class:"",style:"object-fit:cover" ,width:"45px",height:"45px" %>
-                          <% end %>
-                          <%= link_to request.user.name, user_path(request.user) %>
-                        </div>
-                        <div class="btn">
-                          <%= link_to "　詳細　",  user_path(request.user), class:"mb-1 shadow btn btn-sm btn-dark" %>
-                          <%# Todo承認機能 %>
-                          <%= form_for(@event, url:{controller:'events', action: 'update',id:@event.id}) do |f| %>
-                            <%= f.hidden_field :participant_id, :value => request.user.id %>
-                            <%= f.submit "　承認　", class:"btn-sm btn-danger btn shadow", data: { confirm: '承認しますか?'} %>
-                          <% end %>
-                          <%#= link_to "承認", "", class:"btn-sm btn-danger", data: { confirm: '承認しますか?'} %>
-                        </div>
-                      </div>
-                      <% request.request_users.each do |request_user| %>
-                        <div>
-                        <%= link_to request_user.user.name, user_path(request_user.user) %>
-                        </div>
-                      <% end %>
-                      <%= request.message %>
-                    </div>
-                  <hr class="m-1">
-                  <% end %>
-                  <% else %>
-                  まだありません
-                  <% end %>
-                <% else %>
-                  <h5 class="card-title">メッセージ</h5>
-                  <% if @requests.where(user: current_user).present? %>
-                  送信済み
-                  <% else %>
-                    <% if user_signed_in? %>
-                      <div class="requestBtn text-center">
-                        <%= form_with(model:@request, url:requests_path, method: :post, local:true) do |f| %>
-                          <%= f.hidden_field :user_id, :value => current_user.id %>
-                          <%= f.hidden_field :event_id, :value => @event.id %>
-                          <div class="form-group">
-                            <%= f.text_area :message, class:"form-control" %>
-                          </div>
-                          <%= f.submit "リクエストを送る", class:"btn btn-dark shadow"%>
+              <% if @event.user == current_user %>
+                <h5 class="card-title mb-3">リクエスト一覧</h5>
+                <% if @requests.present? %>
+                <% @requests.each do |request| %>
+                  <div class="px-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <% if @event.user.image.attached? %>
+                          <%= image_tag @event.user.image, class:"",style:"object-fit:cover" ,width:"45px",height:"45px" %>
                         <% end %>
+                        <%= link_to request.user.name, user_path(request.user) %>
                       </div>
-                    <% else %>
-                      <p>リクエストを送る場合はログインしてください</p>
-                      <%= link_to "ログイン", new_user_session_path, class:"btn btn-dark shadow" %>
+                      <div class="btn">
+                        <%= link_to "　詳細　",  user_path(request.user), class:"mb-1 shadow btn btn-sm btn-dark" %>
+                        <%# Todo承認機能 %>
+                        <%= form_for(@event, url:{controller:'events', action: 'update',id:@event.id}) do |f| %>
+                          <%= f.hidden_field :participant_id, :value => request.user.id %>
+                          <%= f.submit "　承認　", class:"btn-sm btn-danger btn shadow", data: { confirm: '承認しますか?'} %>
+                        <% end %>
+                        <%#= link_to "承認", "", class:"btn-sm btn-danger", data: { confirm: '承認しますか?'} %>
+                      </div>
+                    </div>
+                    <% request.request_users.each do |request_user| %>
+                      <div>
+                      <%= link_to request_user.user.name, user_path(request_user.user) %>
+                      </div>
                     <% end %>
-                  <% end %>
+                    <%= request.message %>
+                  </div>
+                <hr class="m-1">
+                <% end %>
+                <% else %>
+                まだありません
                 <% end %>
               <% else %>
-                <h5>年齢確認が必要です。</h5><br><p>関連法規に基づき、年齢確認をしています。</p>
-                <%= link_to "身分証提示", new_license_approval_path %>
+                <h5 class="card-title">メッセージ</h5>
+                <% if @requests.where(user: current_user).present? %>
+                送信済み
+                <% else %>
+                  <% if user_signed_in? %>
+                    <% if license_checked? %>
+                    <div class="requestBtn text-center">
+                      <%= form_with(model:@request, url:requests_path, method: :post, local:true) do |f| %>
+                        <%= f.hidden_field :user_id, :value => current_user.id %>
+                        <%= f.hidden_field :event_id, :value => @event.id %>
+                        <div class="form-group">
+                          <%= f.text_area :message, class:"form-control" %>
+                        </div>
+                        <%= f.submit "リクエストを送る", class:"btn btn-dark shadow"%>
+                      <% end %>
+                    </div>
+                    <% else %>
+                      <h5>年齢確認が必要です。</h5><br><p>関連法規に基づき、年齢確認をしています。</p>
+                      <%= link_to "身分証提示", new_license_approval_path %>
+                    <% end %>
+                  <% else %>
+                    <p>リクエストを送る場合はログインしてください</p>
+                    <%= link_to "ログイン", new_user_session_path, class:"btn btn-dark shadow" %>
+                  <% end %>
+                <% end %>
               <% end %>
             <% else %>
               募集を締め切りました。
