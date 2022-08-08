@@ -5,8 +5,8 @@ class DirectMessagesController < ApplicationController
     @room = Entry.find_by(user_id: current_user.id).room
     # entry = Entry.find_by(user_id: params[:id], room_id: @room.id)
     @direct_message = DirectMessage.new
-    @direct_messages = DirectMessage.all
     @user = User.find(params[:id])
+    @direct_messages = DirectMessage.where(user: @user).or(DirectMessage.where(user: current_user))
   end
 
   def create
