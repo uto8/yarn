@@ -47,13 +47,13 @@
         </div>
         <% @events.each do |event| %>
         <div class="card-body d-flex justify-content-between">
-          <%= event.title %>
+          <%= event.title.truncate(6) %>
           <div>
             <%= link_to "詳細", event_path(event), class:"btn-sm btn-dark shadow" %>
             <% if event.participant_id == nil %>
               <%= link_to "編集", edit_event_path(event), class:"btn-sm btn-dark shadow" %>
             <% else %>
-              <%= link_to "　DM　", direct_message_path(event.participant), class:"btn-sm btn-dark shadow" %>
+              <%= link_to "DM", direct_message_path(event.participant), class:"btn-sm btn-dark shadow" %>
             <% end %>
           </div>
         </div>
