@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_action :autheniticate_user, {only: [:new, :create, :edit, :update]}
-  before_action :event_user, {only: [:edit, :update]}
+  before_action :event_user, {only: [:edit]}
   def index
     @friends = current_user.followings & current_user.followers
     @events = Event.all
