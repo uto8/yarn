@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
   before_action :search
+  before_action :autheniticate_user, {only: [:edit, :update]}
+  before_action :correct_user, {only: [:edit, :update]}
+
   def index
     @q = User.ransack(params[:q])
     @user_results = @q.result(distinct: true)

@@ -1,4 +1,6 @@
 class DirectMessagesController < ApplicationController
+  before_action :autheniticate_user
+
   def show
     @room = Entry.find_by(user_id: current_user.id).room
     # entry = Entry.find_by(user_id: params[:id], room_id: @room.id)
@@ -20,5 +22,13 @@ class DirectMessagesController < ApplicationController
   private
   def direct_message_params
     params.require(:direct_message).permit(:content, :room_id, :user_id)
+  end
+
+  def talk_permitted
+    user = User.find(params[:id])
+    entry1 = Entry.find_by(user_id: user)
+    entry2 = Entry.find_by(user_id: current_user)    
+    flash[:error]="アカウントが違います"
+    redirect_to root_path unless entry1.room = entry2.room 
   end
 end
