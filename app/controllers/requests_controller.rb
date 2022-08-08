@@ -1,4 +1,6 @@
 class RequestsController < ApplicationController
+  before_action :autheniticate_user
+
   def create
     @friends = current_user.followings & current_user.followers
     event = Event.find(params[:id])

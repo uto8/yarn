@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+  before_action :autheniticate_user, {only: [:new, :create, :edit, :update]}
+  before_action :event_user, {only: [:edit, :update]}
   def index
     @friends = current_user.followings & current_user.followers
     @events = Event.all
@@ -58,5 +60,12 @@ class EventsController < ApplicationController
     params.require(:event).permit(:user_id, :address, :title, :message, :is_finish, :request, :latitude, :longitude, :participant_id,
       event_users_attributes: [:id,:event_id, :user_id, :_destroy],
     )
+  end
+
+  def event_user
+    @events = current_user.events
+    @event = @events.find_by(id: params[:id])
+    flash[:error]="アカウントが違います"
+    redirect_to root_path unless @event
   end
 end

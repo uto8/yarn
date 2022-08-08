@@ -1,4 +1,6 @@
 class LicenseApprovalsController < ApplicationController
+  before_action :autheniticate_user
+
   def new
     @license_approval = LicenseApproval.new
   end

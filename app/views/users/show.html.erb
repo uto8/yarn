@@ -17,12 +17,14 @@
           性別：<%= @user.gender %>
         </div>
         <div>
-          <span class="mr-2"><small>フォロー</small><%= current_user.followings.count %></span>
-          <span><small>フォロワー</small><%= current_user.followers.count %></span>
+          <span class="mr-2"><small>フォロー</small><%= @user.followings.count %></span>
+          <span><small>フォロワー</small><%= @user.followers.count %></span>
         </div>
-        <% unless license_checked? %>
-        <h5>年齢確認が必要です。</h5><br><p>関連法規に基づき、年齢確認をしています。</p>
-        <%= link_to "身分証提示", new_license_approval_path %>
+        <% if signed_in? && current_user == @user %>
+          <% unless license_checked? %>
+          <h5>年齢確認が必要です。</h5><br><p>関連法規に基づき、年齢確認をしています。</p>
+          <%= link_to "身分証提示", new_license_approval_path %>
+        <% end %>
       <% end %>
       <div class="p-1">
         <% if current_user == @user %>
