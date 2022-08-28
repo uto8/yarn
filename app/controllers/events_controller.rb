@@ -55,6 +55,17 @@ class EventsController < ApplicationController
     end
   end
 
+  def self.event_destroy
+    time = Time.now
+    events = Event.all
+    events.each do |event|
+      if event.created_at + event.limit.days < time && event.is_valid == '有効'
+        event.is_valid = '無効'
+        event.save
+      end
+    end
+  end
+
   private
   def event_params
     params.require(:event).permit(:user_id, :address, :title, :message, :is_finish, :request, :latitude, :longitude, :participant_id,
