@@ -4,6 +4,7 @@ class AddNameAndGenderToUser < ActiveRecord::Migration[6.1]
     add_column :users, :gender, :integer, null: false, default: 0
     add_column :users, :birthday, :date, null: false
     add_column :users, :is_admin, :boolean, default: false
-    add_column :users, :license_approval_status, :boolean, default: false
+    add_column :users, :address, :integer, null: false, default: 0
+    add_column :users, :license_approval_status, :boolean, default: true
   end
 end

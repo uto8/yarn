@@ -30,7 +30,7 @@
 
           <div class="form-group">
             <%= f.label :birthday, "生年月日" %>
-            <%= f.date_field :birthday, autofocus: true, class:"form-control" %>
+            <%= f.date_field :birthday, :value => "2000-08-26", autofocus: true, class:"form-control" %>
           </div>
 
           <div class="form sex-field mb-2">
@@ -40,6 +40,15 @@
             <%= f.label :woman, "女性" %>
             <%= f.radio_button :gender, :woman %>
           </div>
+
+          <div class="form sex-field mb-2">
+            <%= f.label :address,"地域" %><br />
+            <%= f.label :kantou, "関東" %>
+            <%= f.radio_button :address, :kantou %>
+            <%= f.label :woman, "東海" %>
+            <%= f.radio_button :address, :toukai %>
+          </div>
+
            <div class="form-group form-check mb-3">
             <%= f.check_box :agreement, :as => :boolean, checked:false, class:"form-check-input" %>
             <a class="form-check-label" data-toggle="modal" data-target="#exampleModal">

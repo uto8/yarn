@@ -12,7 +12,7 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = Event.create(event_params)
+    @event = Event.create!(event_params)
     @friends = current_user.followings & current_user.followers
     if @event.save
       flash[:success] = "イベントを作成しました"
@@ -68,9 +68,7 @@ class EventsController < ApplicationController
 
   private
   def event_params
-    params.require(:event).permit(:user_id, :address, :title, :message, :is_finish, :request, :latitude, :longitude, :participant_id,
-      event_users_attributes: [:id,:event_id, :user_id, :_destroy],
-    )
+    params.require(:event).permit(:user_id, :address, :is_finish, :request, :participant_id, :image)
   end
 
   def event_user
