@@ -1,13 +1,17 @@
 @import "bootstrap/scss/bootstrap";
 @import url('https://fonts.googleapis.com/css2?family=Sawarabi+Gothic&display=swap');
-@import "toastr/toastr"; 
+@import "toastr/toastr";
 body{
   font-family: 'Sawarabi Gothic', sans-serif;
-  background:#00CC99;
+  // background: linear-gradient(to bottom right, $blue, $pink);
+  background-color: white;
+  min-height: 100vh;
 }
 .img-logo{
-  width:150px;
+  width:250px;
 }
+$pink: #E93E9B;
+$blue: #6D80F3;
 .btn-green{
   background:#00CC99;
   color:#fff;
@@ -32,4 +36,7 @@ body{
 .inview{
   display: none;
 }
+}
+.bg-black{
+  background-color: black;
 }

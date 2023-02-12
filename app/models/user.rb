@@ -5,11 +5,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates_acceptance_of :agreement, allow_nil: false, on: :create
-  
+
   validates :name, presence: true
   validates :birthday, presence: true
 
   enum gender: { man: 0, woman: 1 }
+  enum address: { kantou: 0, toukai: 1 }
 
   has_one_attached :image
 

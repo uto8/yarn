@@ -7,27 +7,13 @@
           <%#= render 'shared/error_messages', model: f.object %>
           <%= f.hidden_field :user_id, :value => current_user.id %>
           <div class="form-group">
-            <%= f.label :title, "タイトル" %>
-            <%= f.text_field :title, class:"form-control" %>
-          </div> 
-          <div class="form-group">
-            <%= f.label :address, "場所" %>
-            <%= f.text_field :address, class:"form-control" %>
+            <%= f.file_field :image %>
           </div>
-          <div class="form-group" id='detail-association-insertion-point'>
-            <%= f.label :event_users, "参加者" %>
-            <%= f.fields_for :event_users do |event_user| %>
-              <%= render 'event_user_fields', f: event_user %>
-            <% end %>
-            <div class="add-association">
-              <%= link_to_add_association f, :event_users, class: "btn btn-outline-dark" do %>
-                追加
-              <% end %>
+          <div class="form-group">
+            <%= f.label :address, "エリア" %>
+            <div class="mb-2">
+              <%= f.select :address, {'恵比寿': "ebisu", '渋谷': "shibuya", '六本木': "roppongi"}, { include_blank: '選択してください'}, { class: 'form-control' , required: true } %>
             </div>
-          </div>
-          <div class="form-group">
-            <%= f.label :message, "メッセージ" %>
-            <%= f.text_area :message, class:"form-control" %>
           </div>
           <div class="actions text-center">
             <%= f.submit "募集する",class:"btn shadow" %>

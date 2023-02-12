@@ -7,9 +7,9 @@ import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
-import "bootstrap"
+// import "bootstrap"
 require('jquery')
-require("@nathanvda/cocoon") 
+require("@nathanvda/cocoon")
 global.toastr = require("toastr")
 
 Rails.start()
@@ -32,16 +32,16 @@ ActiveStorage.start()
 //   let fileIndex = [1,2,3,4,5,6,7,8,9,10];
 
 //   $('#image-box').on('change', '.js-file', function(e) {
-    
+
 //     $('#image-box').append(buildFileField(fileIndex[0]));
 //     fileIndex.shift();
-    
+
 //     fileIndex.push(fileIndex[fileIndex.length - 1] + 1)
 //   });
 
 //   $('#image-box').on('click', '.js-remove', function() {
 //     $(this).parent().remove();
-    
+
 //     if ($('.js-file').length == 0) $('#image-box').append(buildFileField(fileIndex[0]));
 //   });
 // });

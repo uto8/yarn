@@ -4,9 +4,8 @@
     <div class="card shadow-lg pt-3 pb-3 mb-4">
       <div class="card-body">
         <h5 class="card-title mb-1">
-          <%= @event.title %>
         </h5>
-        <p class="card-text mb-5"><%= @event.message %></p>
+        <p class="card-text mb-5"><%#= @event.message %></p>
         <% if @event.user.image.attached? %>
           <%= image_tag @event.user.image, class:"w-100" %>
         <% end %>
