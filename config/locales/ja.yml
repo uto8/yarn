@@ -1,11 +1,13 @@
 ja:
   enums:
-    user: # モデル名
-      gender: # カラム名
-        man: '男性' # enumの値
-        woman: '女性' # enumの値
-    event: # モデル名
-      address: # カラム名
-        shibuya: "渋谷" # enumの値
-        ebisu: "恵比寿" # enumの値
+    user:
+      gender:
+        man: '男性'
+        woman: '女性'
+    event:
+      address:
+        shibuya: "渋谷"
+        ebisu: "恵比寿"
         roppongi: "六本木"
+        meieki: "名駅"
+        sakae: "栄"

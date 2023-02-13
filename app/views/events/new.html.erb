@@ -12,7 +12,11 @@
           <div class="form-group">
             <%= f.label :address, "エリア" %>
             <div class="mb-2">
-              <%= f.select :address, {'恵比寿': "ebisu", '渋谷': "shibuya", '六本木': "roppongi"}, { include_blank: '選択してください'}, { class: 'form-control' , required: true } %>
+              <% if kantou %>
+                <%= f.select :address, {'恵比寿': "ebisu", '渋谷': "shibuya", '六本木': "roppongi"}, { include_blank: '選択してください'}, { class: 'form-control' , required: true } %>
+              <% else %>
+                <%= f.select :address, {'名古屋': "meieki", '栄': "sakae"}, { include_blank: '選択してください'}, { class: 'form-control' , required: true } %>
+              <% end %>
             </div>
           </div>
           <div class="actions text-center">

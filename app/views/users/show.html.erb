@@ -13,12 +13,8 @@
         </div>
         <div class="mb-4">
           名前：<%= @user.name %><br>
-          生年月日：<%= @user.birthday %><br>
-          性別：<%= @user.gender %>
-        </div>
-        <div>
-          <span class="mr-2"><small>フォロー</small><%= @user.followings.count %></span>
-          <span><small>フォロワー</small><%= @user.followers.count %></span>
+          年齢：<%= calc_age(@user.birthday) %>歳<br>
+          性別：<%= @user.gender_i18n %>
         </div>
         <% if signed_in? && current_user == @user %>
           <% unless license_checked? %>
@@ -39,27 +35,9 @@
       </div>
       </div>
     </div>
-    <% if @user == current_user%>
-      <% if @requests.present? %>
-      <div class="card shadow-lg pb-3 mb-5">
-        <div class="card-header">
-          リクエスト
-        </div>
-        <% @requests.each do |request| %>
-        <div class="card-body d-flex justify-content-between">
-          <%= request.event.title %>
-          <div>
-            <% if request.event.participant_id== nil %>
-              承認待ち
-            <% else %>
-              <%= link_to "　DM　", direct_message_path(request.event.user), class:"btn-sm btn-dark shadow" %>
-            <% end %>
-          </div>
-        </div>
-        <% end %>
-      </div>
-      <% end %>
-    <% end %>
+    <div class="text-center">
+      <%= link_to 'ログアウト', destroy_user_session_path, class: 'btn btn-dark', method: :delete %>
+    </div>
   </div>
   <div class="col-lg-3"></div>
 </div>
