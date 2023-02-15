@@ -2,23 +2,41 @@
   <%= link_to "募集する", new_event_path, class:"btn btn-dark shadow" %>
 </div>
 <div class="row">
-  <% @events.each do |event| %>
-    <div class="col-12 col-lg-4 mb-4">
-      <div class="card shadow">
-        <div class="img">
-          <% if event.image.attached? %>
-            <%= image_tag event.image, class:"w-100 mb-2" %>
-          <% else %>
-            <%= image_tag 'favicon.jpg', class:"img-logo" %>
-          <% end %>
-        </div>
+  <% if @events.present? %>
+    <% @events.each do |event| %>
+      <div class="col-12 col-lg-4 mb-4">
+        <div class="card shadow">
+          <div class="img">
+            <% if event.image.attached? %>
+              <%= image_tag event.image, class:"w-100 mb-2" %>
+            <% else %>
+              <%= image_tag 'favicon.jpg', class:"img-logo" %>
+            <% end %>
+          </div>
           <div class="card-body">
-            <h5 class="card-title"><%= event.user.name %>　<%= calc_age(event.user.birthday) %>歳</h5>
+            <h5 class="card-title">
+              <%= event.user.name %>
+              <% if event.user.is_admin %>
+                <span><%= image_tag 'official.png', class:"img-official" %></span>
+              <% end %>
+              　<%= calc_age(event.user.birthday) %>歳</h5>
             <p><%= event.address_i18n %></p>
-            <%= link_to "プロフィールを見る", user_path(event.user), class: "btn btn-dark" %>
+            <%= link_to "プロフィールを見る→", user_path(event.user) %>
+            <div class="text-right mt-2">
+              <% if user_signed_in? %>
+                <%= form_with(model:@request, url:requests_path, method: :post, local:true) do |f| %>
+                  <%= f.hidden_field :user_id, :value => current_user.id %>
+                  <%= f.hidden_field :event_id, :value => event.id %>
+                  <%= f.submit "リクエストを送る", class: 'btn btn-danger' %>
+                <% end %>
+              <% end %>
+            </div>
           </div>
         </div>
-    </div>
+      </div>
+    <% end %>
+  <% else %>
+  募集はありません
   <% end %>
 </div>
 <style>
@@ -30,5 +48,9 @@
   max-height: 100%;
   object-fit: cover;
   width: 100%;
+}
+.img-official{
+  width: 22px;
+  object-fit: cover;
 }
 </style>

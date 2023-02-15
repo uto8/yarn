@@ -10,24 +10,25 @@ User.create!(
   [
     {
       name: "ユウト",
-      email: "yuto@gmail.com",
+      email: "yutoadmin@gmail.com",
       password: "password",
       birthday: "20000826",
       gender: 0,
       address: 1,
       is_admin: true,
       license_approval_status: true,
+      agreement: true
     },
-    {
-      name: "メンマ",
-      email: "menma@gmail.com",
-      password: "password",
-      birthday: "20210826",
-      gender: 1,
-      address: 1,
-      is_admin: false,
-      license_approval_status: true,
-    }
+    # {
+    #   name: "メンマ",
+    #   email: "menma@gmail.com",
+    #   password: "password",
+    #   birthday: "20210826",
+    #   gender: 1,
+    #   address: 1,
+    #   is_admin: false,
+    #   license_approval_status: true,
+    # }
   ]
 )
 

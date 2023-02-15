@@ -7,4 +7,9 @@ module ApplicationHelper
       flash_messages << text.html_safe if message
     end.join("\n").html_safe
   end
+
+  def kantou
+    current_user.address == 0
+  end
+
 end

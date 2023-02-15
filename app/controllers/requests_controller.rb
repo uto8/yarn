@@ -3,10 +3,11 @@ class RequestsController < ApplicationController
 
   def create
     @friends = current_user.followings & current_user.followers
-    event = Event.find(params[:id])
-    request = Request.create(request_params)
-    flash[:success] = "リクエストしました"
-    redirect_to action: :edit, id: request.id
+    request = Request.create!(request_params)
+    if request.save
+      flash[:success] = "リクエストしました"
+      redirect_to root_path
+    end
   end
 
   def edit
@@ -28,11 +29,9 @@ class RequestsController < ApplicationController
       flash[:error] = "友達の追加に失敗しました"
     end
   end
-  
+
   private
   def request_params
-    params.permit(:user_id, :event_id, :message,
-      request_users_attributes: [:id, :request_id, :user_id, :_destroy]
-    )
+    params.require(:request).permit(:user_id, :event_id)
   end
 end

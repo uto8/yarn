@@ -1,32 +1,57 @@
 <div class="row mb-5">
   <div class="col-lg-3"></div>
   <div class="col-lg-6 col-12">
-    <div class="card shadow-lg pt-3 pb-3 mb-4">
-      <% if license_checked? %>
-        <div class="card-title d-flex justify-content-between p-4">
-          <h5>募集</h5>
-          <%= link_to "募集する", new_event_path, class:"btn btn-dark shadow" %>
-        </div>
-      <% else %>
-        <div class="card-body">
-          <h5>年齢確認が必要です。</h5><br><p>関連法規に基づき、年齢確認をしています。</p>
-          <%= link_to "身分証提示", new_license_approval_path %>
-        </div>
-      <% end %>
-    </div>
-    <div class="card">
-      <div class="card-header">
-        イベント一覧
-      </div>
-      <ul class="list-group list-group-flush">
-        <% @events.each do |event| %>
-          <li class="list-group-item d-flex">
-            <%= link_to event.address, event_path(event) %>
 
-          </li>
+    <% if @requests.present? %>
+      <div class="card shadow-lg pb-3 mb-5">
+        <div class="card-header">
+          リクエスト
+        </div>
+        <% @requests.each do |request| %>
+        <div class="card-body d-flex justify-content-between">
+          <%= request.event.user.name %>
+          <div>
+            <% if request.event.participant_id== nil %>
+              承認待ち
+            <% else %>
+              <%= link_to "　DM　", direct_message_path(request.event.user), class:"btn-sm btn-dark shadow" %>
+            <% end %>
+          </div>
+        </div>
         <% end %>
-      </ul>
-    </div>
+      </div>
+    <% else %>
+    リクエストした募集はありません。
+    <% end %>
+    <% if @events.present? %>
+      <div class="card shadow-lg pb-3 mb-5">
+        <div class="card-header">
+          募集中のイベント
+        </div>
+        <%# 一度に一回しか投稿できないようにする %>
+        <% @events.each do |event| %>
+          <% event.requests.each do |request| %>
+            <div class="card-body d-flex justify-content-between">
+              <%= request.user.name %>
+              <div>
+                <% if event.participant_id== nil %>
+                  <%= form_for(event, url:{controller:'events', action: 'update',id:event.id}) do |f| %>
+                    <%= f.hidden_field :participant_id, :value => request.user.id %>
+                    <%= f.submit "　承認　", class:"btn-sm btn-danger btn shadow", data: { confirm: '承認しますか?'} %>
+                  <% end %>
+                  <%#= link_to "　承認　", "", class:"btn-sm btn-danger shadow" %>
+                <% else %>
+                  <%= link_to "　DM　", direct_message_path(event.user), class:"btn-sm btn-dark shadow" %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% else %>
+    イベントはありません。
+    <% end %>
   </div>
   <div class="col-lg-3"></div>
 </div>
+
