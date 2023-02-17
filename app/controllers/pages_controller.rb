@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   def home
     if user_signed_in?
-      @events = Event.joins(:user).where.not(user: current_user, user: {address: current_user.address}).order(id: "DESC")
+      @events = Event.joins(:user).where.not(user: current_user).where(user: {address: current_user.address}).order(id: "DESC")
     else
       @events = Event.order(id: "DESC")
     end
