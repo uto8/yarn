@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 2022_08_06_132837) do
   create_table "events", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.integer "address"
-    t.boolean "is_finish"
+    t.boolean "is_finish", default: false
     t.integer "request"
     t.bigint "participant_id"
     t.datetime "created_at", precision: 6, null: false
@@ -124,14 +124,14 @@ ActiveRecord::Schema.define(version: 2022_08_06_132837) do
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
+    t.string "email", limit: 255, default: "", null: false
+    t.string "encrypted_password", limit: 255, default: "", null: false
+    t.string "reset_password_token", limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "name", null: false
+    t.string "name", limit: 255, null: false
     t.integer "gender", default: 0, null: false
     t.date "birthday", null: false
     t.boolean "is_admin", default: false

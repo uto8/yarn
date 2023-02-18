@@ -3,7 +3,7 @@ class CreateEvents < ActiveRecord::Migration[6.1]
     create_table :events do |t|
       t.references :user, null: false, foreign_key: true
       t.integer :address
-      t.boolean :is_finish
+      t.boolean :is_finish, default: false
       t.integer :request
       t.references :participant, foreign_key: { to_table: :users }, null: true
 

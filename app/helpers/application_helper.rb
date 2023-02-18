@@ -12,4 +12,7 @@ module ApplicationHelper
     current_user.address == 0
   end
 
+  def requested(event)
+    return current_user.requests.find_by(event_id: event.id)
+  end
 end
