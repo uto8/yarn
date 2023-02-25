@@ -6,6 +6,7 @@
         <%= form_with(model:@event, url:events_path, method: :post, local:true) do |f| %>
           <%#= render 'shared/error_messages', model: f.object %>
           <%= f.hidden_field :user_id, :value => current_user.id %>
+          参加メンバー(2人)で写真を撮って投稿してください(jpg,pngの1〜5メガバイトのみ)
           <div class="form-group">
             <%= f.file_field :image %>
           </div>

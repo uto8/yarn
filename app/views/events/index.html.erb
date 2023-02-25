@@ -9,7 +9,7 @@
         </div>
         <% @requests.each do |request| %>
         <div class="card-body d-flex justify-content-between">
-          <%= request.event.user.name %>
+          <%= link_to request.event.user.name, user_path(request.event.user)  %>
           <div>
             <% if request.event.participant_id== nil %>
               承認待ち
@@ -32,7 +32,7 @@
         <% @events.each do |event| %>
           <% event.requests.each do |request| %>
             <div class="card-body d-flex justify-content-between">
-              <%= request.user.name %>
+              <%= link_to request.user.name, user_path(request.user) %>
               <div>
                 <% if event.participant_id== nil %>
                   <%= form_for(event, url:{controller:'events', action: 'update',id:event.id}) do |f| %>
